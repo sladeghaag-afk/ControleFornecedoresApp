@@ -53,7 +53,7 @@ namespace ControleFornecedoresApp.Services
             Console.Write("INFORME O CNPJ DO FORNECEDOR..: ");
             var cnpj = Console.ReadLine() ?? string.Empty;
 
-            var fornecedor = _fornecedores.Find(f => f.Cnpj == cnpj);
+            var fornecedor = _fornecedores.Find(f => f.CNPJ == cnpj);
 
             if (fornecedor == null)
             {
@@ -62,7 +62,7 @@ namespace ControleFornecedoresApp.Services
             }
 
             _fornecedores.Remove(fornecedor);
-            Console.WriteLine($"FORNECEDOR EXCLUÍDO: {fornecedor.Nome}");
+            Console.WriteLine($"FORNECEDOR EXCLUÍDO: {fornecedor.NomeFornecedor}");
         }
 
                             
