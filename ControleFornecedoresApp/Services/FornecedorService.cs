@@ -5,28 +5,52 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Channels;
 
+
 namespace ControleFornecedoresApp.Services
 {
     public class FornecedorService
     {
-        private readonly List<Fornecedor> _fornecedores = new List<Fornecedor>();
+        public readonly List<Fornecedor> _fornecedores = new List<Fornecedor>();
         public void CadastrarFornecedor()
         {
+            var Fornecedor = new Fornecedor();
 
             Console.WriteLine("CADASTRO DE FORNECEDORES");
             Console.Write("INFORME O NOME DO FORNECEDOR..:");
-            var nomeFornecedor = Console.ReadLine() ?? string.Empty;
+            Fornecedor.NomeFornecedor = Console.ReadLine() ?? string.Empty;
             Console.Write("INFORME O CNPJ DO FORNECEDOR..:");
-            var cnpjFornecedor = Console.ReadLine() ?? string.Empty;
+            Fornecedor.CNPJ = Console.ReadLine() ?? string.Empty.PadRight(14).Substring(0, 14).Trim();
 
-            if (string.IsNullOrWhiteSpace(nomeFornecedor) || string.IsNullOrWhiteSpace(cnpjFornecedor))
+            if (string.IsNullOrWhiteSpace(Fornecedor.NomeFornecedor) || string.IsNullOrWhiteSpace(Fornecedor.CNPJ))
             {
                 Console.WriteLine("NOME E CNPJ SÃO OBRIGATÓRIOS.");
-              return;
+                CadastrarFornecedor();
+                return;
+            }
+            if (_fornecedores.Exists(f => f.CNPJ == Fornecedor.CNPJ))
+            {
+                Console.WriteLine("FORNECEDOR JÁ CADASTRADO.");
+                CadastrarFornecedor();
+                return;
+            }
+            if (Fornecedor.CNPJ.Length != 14)
+            {
+                Console.WriteLine("CNPJ INVÁLIDO. DEVE CONTER 14 DÍGITOS.");
+                CadastrarFornecedor();
+                return;
             }
 
+            if (!long.TryParse(Fornecedor.CNPJ, out _))
+            {
+                Console.WriteLine("CNPJ INVÁLIDO. DEVE CONTER APENAS NÚMEROS.");
+                CadastrarFornecedor();
+                return;
+            }
+
+
+
             // Aqui você pode adicionar a lógica para salvar o fornecedor em um banco de dados ou lista
-            Console.WriteLine($"FORNECEDOR CADASTRADO COM SUCESSO: {nomeFornecedor} - {cnpjFornecedor}");
+
 
 
         }
@@ -36,6 +60,7 @@ namespace ControleFornecedoresApp.Services
             if (_fornecedores.Count == 0)
             {
                 Console.WriteLine("NENHUM FORNECEDOR CADASTRADO.");
+                while (_fornecedores.Count != 0)
                 return;
             }
 

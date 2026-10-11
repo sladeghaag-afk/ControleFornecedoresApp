@@ -11,5 +11,10 @@ namespace ControleFornecedoresApp.Entites
         public string NomeFornecedor { get; set; } = string.Empty;
 
         public string CNPJ { get; set; } = string.Empty;
+
+
+
+
+
     }
 }
