@@ -1,4 +1,5 @@
-﻿using ControleFornecedoresApp.Entites;
+﻿using ControleFornecedoresApp.Controllers;
+using ControleFornecedoresApp.Entites;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
@@ -122,6 +123,11 @@ namespace ControleFornecedoresApp.Services
 
 
 
+        }
+
+        internal void ExportarDados(ControleService controleService)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using ControleFornecedoresApp;
-using ControleFornecedoresApp.Services;
 using System;
+using ControleFornecedoresApp.Controllers;
 
 var controle = new ControleService();
 controle.ControleServices();
